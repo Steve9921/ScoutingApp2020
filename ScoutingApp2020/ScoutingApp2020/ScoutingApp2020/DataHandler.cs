@@ -4,6 +4,7 @@ using System.IO;
 
 namespace ScoutingApp2020 {
 	public class DataHandler {
+		public string TabletName { get; set; }
 		//START
 		public string ScoutName { get; set; }
 		public int MatchNumber { get; set; }
@@ -61,6 +62,7 @@ namespace ScoutingApp2020 {
 		/// <param name="filePath">Folder to store files in.</param>
 		/// <param name="fileName">Name of Full Data text file.</param>
 		public DataHandler(string filePath, string fileName) {
+			TabletName = BluetoothAdapter.DefaultAdapter.Name;
 			_filePath = filePath;
 			_fileName = fileName + "_" + BluetoothAdapter.DefaultAdapter.Name.Replace(' ', '_').ToLowerInvariant();
 			if (!Directory.Exists("/storage/emulated/0/Download/ScoutingData"))
@@ -87,6 +89,7 @@ namespace ScoutingApp2020 {
 		/// <param name="separator">String to separate fields with (comma, tab, space, etc.).</param>
 		public void BuildString(string separator) {
 			_dataString =
+				TabletName + separator +
 				ScoutName + separator +
 				MatchNumber + separator +
 				ReplayMatch + separator +
@@ -155,6 +158,7 @@ namespace ScoutingApp2020 {
 		/// </summary>
 		public void BuildQuery() {
 			_query = "INSERT INTO RawData(" +
+				nameof(TabletName) + ", " +
 				nameof(ScoutName) + ", " +
 				nameof(MatchNumber) + ", " +
 				nameof(ReplayMatch) + ", " +
@@ -194,6 +198,7 @@ namespace ScoutingApp2020 {
 				nameof(Comments) +
 			") " +
 			"VALUES (" +
+				"'" + TabletName + "', " +
 				"'" + ScoutName + "', " +
 				MatchNumber + ", " +
 				(ReplayMatch ? 1 : 0) + ", " +
