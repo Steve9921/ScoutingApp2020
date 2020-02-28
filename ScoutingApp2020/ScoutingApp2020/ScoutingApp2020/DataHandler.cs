@@ -69,7 +69,7 @@ namespace ScoutingApp2020 {
 				Directory.CreateDirectory("/storage/emulated/0/Download/ScoutingData");
 			if (!File.Exists(_filePath + _fileName + ".sqlite")) {
 				File.Create(_filePath + _fileName + ".sqlite");
-				SqliteConnection connection = new SqliteConnection("Data Source = " + _filePath + _fileName + ".sqlite; Version=3;");
+				SqliteConnection connection = new SqliteConnection("Data Source=" + _filePath + _fileName + ".sqlite; Version=3;");
 				connection.Open();
 				StreamReader streamReader = new StreamReader(Android.App.Application.Context.Assets.Open("CreateStatement.txt"));
 				string createStatement = streamReader.ReadToEnd();
@@ -243,7 +243,7 @@ namespace ScoutingApp2020 {
 		/// Inserts data into SQLite database.
 		/// </summary>
 		public void WriteToDatabase() {
-			SqliteConnection connection = new SqliteConnection("Data Source = " + _filePath + _fileName + ".sqlite; Version=3;");
+			SqliteConnection connection = new SqliteConnection("Data Source=" + _filePath + _fileName + ".sqlite; Version=3;");
 			connection.Open();
 			SqliteCommand command = new SqliteCommand(_query, connection);
 			command.ExecuteNonQuery();
